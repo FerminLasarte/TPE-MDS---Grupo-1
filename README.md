@@ -19,7 +19,7 @@ El siguiente proyecto tiene como objetivo principal generar una plataforma para 
 &nbsp; &nbsp; ▫ Dr. Guillermo Horacio Rodríguez. <br>
                               
 ◾ Grupo de desarrollo: <br>
-&nbsp; &nbsp; ▫ Fermin Lazarte. <br>
+&nbsp; &nbsp; ▫ Fermin Lasarte. <br>
 &nbsp; &nbsp; ▫ Franco Caraffo. <br>
 &nbsp; &nbsp; ▫ Tadeo Villa. <br>
 &nbsp; &nbsp; ▫ Matias Rodriguez. <br>
