@@ -1,4 +1,4 @@
-# Plataforma 9 3/4 <br>
+# Plataforma 9 3/4 🧹 <br>
 En este archivo se incluye una breve descripción del proyecto desarrollado junto con los links referidos al product backlog y al USM. 
 
 # Descripción del proyecto <br>
