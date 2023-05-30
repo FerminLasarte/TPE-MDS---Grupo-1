@@ -10,6 +10,8 @@ public abstract class Elemento {
 
     public abstract ArrayList<Viaje> buscar(Filtro f);
 
-    public abstract String getNombreEmpresa();
+    public String getNombreEmpresa() {
+        return nombreEmpresa;
+    }
 
 }
