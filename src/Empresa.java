@@ -22,6 +22,7 @@ public class Empresa extends Elemento {
         return viajeAux;
     }
 
+    git 
     @Override
     public String getNombreEmpresa() {
         return
