@@ -7,6 +7,7 @@ public class Empresa extends Elemento {
         this.viajes = new ArrayList<>();
     }
 
+    //chimuelo el piyuelo
     public void agregarViaje(Viaje viaje) {
         viajes.add(viaje.getCopiaViaje());
     }
