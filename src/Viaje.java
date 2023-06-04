@@ -2,13 +2,15 @@ import java.util.*;
 public class Viaje extends Elemento {
     private Date fechaSalida;
     private Date fechaLlegada;
+    private int horarioDeSalida;
+    private int horarioDeLlegada;
     private ArrayList<Usuario> usuarios;
     private int cupo;
     private String destino;
     private String origen;
     private int precio;
 
-    public Viaje(Date fechaSalida, Date fechaLlegada, String nombreEmpresa, int cupo, String destino, String origen, int precio) {
+    public Viaje(Date fechaSalida, Date fechaLlegada, String nombreEmpresa, int cupo, String destino, String origen, int precio, int horarioDeSalida, int horarioDeLlegada) {
         super(nombreEmpresa);
         this.fechaSalida = fechaSalida;
         this.fechaLlegada = fechaLlegada;
@@ -17,6 +19,8 @@ public class Viaje extends Elemento {
         this.destino = destino;
         this.origen = origen;
         this.precio = precio;
+        this.horarioDeLlegada = horarioDeLlegada;
+        this.horarioDeSalida = horarioDeSalida;
     }
 
     public int cantidadAsientosLibres() {
@@ -31,7 +35,7 @@ public class Viaje extends Elemento {
     }
 
     public Viaje getCopiaViaje() {
-        Viaje viajeAux = new Viaje(this.fechaSalida, this.fechaLlegada, this.cupo, this.destino, this.origen, this.precio);
+        Viaje viajeAux = new Viaje(fechaSalida, fechaLlegada,super.getNombreEmpresa(), cupo, destino, origen, precio, horarioDeSalida, horarioDeLlegada);
         for (Usuario u : usuarios) {
             viajeAux.agregarPasajero(u.getCopiaUsuario());
         }
@@ -47,10 +51,23 @@ public class Viaje extends Elemento {
         return viajeAux;
     }
 
-    @Override
-    public String getNombreEmpresa() {
-        return ;
+
+    public int getHorarioDeSalida() {
+        return horarioDeSalida;
     }
+
+    public void setHorarioDeSalida(int horarioDeSalida) {
+        this.horarioDeSalida = horarioDeSalida;
+    }
+
+    public int getHorarioDeLlegada() {
+        return horarioDeLlegada;
+    }
+
+    public void setHorarioDeLlegada(int horarioDeLlegada) {
+        this.horarioDeLlegada = horarioDeLlegada;
+    }
+
 
     public Date getFechaSalida() {
         return fechaSalida;

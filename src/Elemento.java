@@ -13,10 +13,4 @@ public abstract class Elemento {
     public String getNombreEmpresa() {
         return nombreEmpresa;
     }
-
-
-
-
-
-    
 }

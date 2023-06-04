@@ -2,12 +2,12 @@ import java.util.*;
 public class Empresa extends Elemento {
     private ArrayList<Viaje> viajes;
 
+
     public Empresa(String nombreEmpresa) {
         super(nombreEmpresa);
         this.viajes = new ArrayList<>();
     }
 
-    //chimuelo el piyuelo
     public void agregarViaje(Viaje viaje) {
         viajes.add(viaje.getCopiaViaje());
     }
@@ -21,15 +21,5 @@ public class Empresa extends Elemento {
             }
         }
         return viajeAux;
-    }
-
-    git 
-    @Override
-    public String getNombreEmpresa() {
-        return
-    }
-
-    public void setNombreEmpresa(String nombreEmpresa) {
-        this.nombreEmpresa = nombreEmpresa;
     }
 }

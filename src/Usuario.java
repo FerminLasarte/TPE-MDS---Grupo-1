@@ -20,7 +20,11 @@ public class Usuario {
         return usuarioAux;
     }
 
-    public void comprarPasaje() {}
+
+    public void comprarPasaje() {
+
+        //
+    }
 
     public String getNombre() {
         return nombre;
