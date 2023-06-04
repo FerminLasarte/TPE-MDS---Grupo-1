@@ -1,5 +1,5 @@
 import java.util.*;
-public class Viaje extends Elemento {
+public class Viaje {
     private Date fechaSalida;
     private Date fechaLlegada;
     private int horarioDeSalida;
@@ -8,10 +8,11 @@ public class Viaje extends Elemento {
     private int cupo;
     private String destino;
     private String origen;
+    private String nombreEmpresa;
     private int precio;
 
     public Viaje(Date fechaSalida, Date fechaLlegada, String nombreEmpresa, int cupo, String destino, String origen, int precio, int horarioDeSalida, int horarioDeLlegada) {
-        super(nombreEmpresa);
+        this.nombreEmpresa = nombreEmpresa;
         this.fechaSalida = fechaSalida;
         this.fechaLlegada = fechaLlegada;
         this.usuarios = new ArrayList<>();
@@ -35,22 +36,30 @@ public class Viaje extends Elemento {
     }
 
     public Viaje getCopiaViaje() {
-        Viaje viajeAux = new Viaje(fechaSalida, fechaLlegada,super.getNombreEmpresa(), cupo, destino, origen, precio, horarioDeSalida, horarioDeLlegada);
+        Viaje viajeAux = new Viaje(fechaSalida, fechaLlegada,nombreEmpresa, cupo, destino, origen, precio, horarioDeSalida, horarioDeLlegada);
         for (Usuario u : usuarios) {
             viajeAux.agregarPasajero(u.getCopiaUsuario());
         }
         return viajeAux;
     }
 
-    @Override
-    public ArrayList<Viaje> buscar(Filtro f) {
-        ArrayList<Viaje> viajeAux = new ArrayList<>();
+    public Viaje cumpleViaje(Filtro f) {
+        Viaje viajeAux = this.getCopiaViaje();
             if (f.cumple(this)) {
-                viajeAux.add(this);
+                return viajeAux;
             }
-        return viajeAux;
+        return null;
     }
 
+    public void imprimirViaje(){
+        System.out.println("Origen: " + origen);
+        System.out.println("Destino: " + destino);
+        System.out.println("Empresa: " + nombreEmpresa);
+        System.out.println("Salida: " + fechaSalida + horarioDeSalida);
+        System.out.println("Llegada: " + fechaLlegada + horarioDeLlegada);
+        System.out.println("Asientos disponibles: " + this.cantidadAsientosLibres());
+        System.out.println("Precio: " + precio);
+    }
 
     public int getHorarioDeSalida() {
         return horarioDeSalida;
@@ -115,5 +124,21 @@ public class Viaje extends Elemento {
 
     public void setPrecio(int precio) {
         this.precio = precio;
+    }
+
+    public ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(ArrayList<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public String getNombreEmpresa() {
+        return nombreEmpresa;
+    }
+
+    public void setNombreEmpresa(String nombreEmpresa) {
+        this.nombreEmpresa = nombreEmpresa;
     }
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Usuario {
     private String nombre;
     private String apellido;
@@ -5,6 +7,7 @@ public class Usuario {
     private String email;
     private String claveAcceso;
     private Tarjeta tarjeta;
+    private ArrayList<Viaje> viajesComprados;
 
     public Usuario(String nombre, String apellido, int DNI, String email, String claveAcceso, Tarjeta tarjeta) {
         this.nombre = nombre;
@@ -13,6 +16,7 @@ public class Usuario {
         this.email = email;
         this.claveAcceso = claveAcceso;
         this.tarjeta = tarjeta;
+        viajesComprados = new ArrayList<Viaje>();
     }
 
     public Usuario getCopiaUsuario() {
@@ -20,10 +24,8 @@ public class Usuario {
         return usuarioAux;
     }
 
+    public void comprar(Filtro f){
 
-    public void comprarPasaje() {
-
-        //
     }
 
     public String getNombre() {
@@ -54,6 +56,9 @@ public class Usuario {
         return email;
     }
 
+    public String getClaveAcceso() {
+        return claveAcceso;
+    }
     public void setEmail(String email) {
         this.email = email;
     }
@@ -65,5 +70,18 @@ public class Usuario {
     public void setTarjeta(Tarjeta tarjeta) {
         this.tarjeta = tarjeta;
     }
+
+    public void setClaveAcceso(String claveAcceso) {
+        this.claveAcceso = claveAcceso;
+    }
+
+    public ArrayList<Viaje> getViajesComprados() {
+        return viajesComprados;
+    }
+
+    public void addViaje(Viaje v) {
+        viajesComprados.add(v);
+    }
+
 }
 
