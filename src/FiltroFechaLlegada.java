@@ -1,4 +1,5 @@
 import java.util.Date;
+
 public class FiltroFechaLlegada implements Filtro{
     private Date fecha1;
     private Date fecha2;

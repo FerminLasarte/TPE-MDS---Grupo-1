@@ -52,6 +52,7 @@ public class Viaje {
     }
 
     public void imprimirViaje(){
+
         System.out.println("Origen: " + origen);
         System.out.println("Destino: " + destino);
         System.out.println("Empresa: " + nombreEmpresa);
