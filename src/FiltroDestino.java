@@ -2,6 +2,7 @@ public class FiltroDestino implements Filtro {
     private String destino;
 
     public FiltroDestino(String destino) {
+
         this.destino = destino;
     }
     @Override

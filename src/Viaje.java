@@ -44,22 +44,19 @@ public class Viaje {
     }
 
     public Viaje cumpleViaje(Filtro f) {
-        Viaje viajeAux = this.getCopiaViaje();
-            if (f.cumple(this)) {
-                return viajeAux;
-            }
+        if (f.cumple(this))
+            return  this.getCopiaViaje();
         return null;
     }
 
     public void imprimirViaje(){
-
-        System.out.println("Origen: " + origen);
-        System.out.println("Destino: " + destino);
-        System.out.println("Empresa: " + nombreEmpresa);
-        System.out.println("Salida: " + fechaSalida + horarioDeSalida);
-        System.out.println("Llegada: " + fechaLlegada + horarioDeLlegada);
+        System.out.println("Origen: " + this.origen);
+        System.out.println("Destino: " + this.destino);
+        System.out.println("Empresa: " + this.nombreEmpresa);
+        System.out.println("Salida: " + this.fechaSalida + this.horarioDeSalida);
+        System.out.println("Llegada: " + this.fechaLlegada + this.horarioDeLlegada);
         System.out.println("Asientos disponibles: " + this.cantidadAsientosLibres());
-        System.out.println("Precio: " + precio);
+        System.out.println("Precio: " + this.precio);
     }
 
     public int getHorarioDeSalida() {

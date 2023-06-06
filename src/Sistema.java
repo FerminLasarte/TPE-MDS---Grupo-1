@@ -44,10 +44,12 @@ public class Sistema {
         return null;
     }
 
-    public void buscarPasaje(Filtro f, Usuario u) {
+    public void buscarPasaje(Filtro filtro, Usuario user) {
         ArrayList<Viaje> aux = new ArrayList<>();
-        for (Viaje v : viajes)
-            aux.add(v.cumpleViaje(f));
+        for (Viaje v : viajes){
+            if(v.cumpleViaje(filtro) != null)
+                aux.add(v.cumpleViaje(filtro));
+        }
         if (!aux.isEmpty()) {
             int i = 0;
             for (Viaje a : aux) {
@@ -66,7 +68,7 @@ public class Sistema {
         if (c.equals("s") || c.equals("S")) {
             System.out.println("Ingrese el numero de viaje que desea comprar");
             int pasaje = scanner.nextInt();
-            comprarPasaje(aux.get(pasaje), u);
+            comprarPasaje(aux.get(pasaje), user);
         }
     }
 
@@ -108,7 +110,7 @@ public class Sistema {
             case 1 -> {
                 System.out.println("1. ingrese destino:");
                 String destino = scanner.nextLine();
-                System.out.println("llego");
+                System.out.println(destino);
                 return new FiltroDestino(destino);
             }
             case 2 -> {
@@ -184,23 +186,26 @@ public class Sistema {
         System.out.println("Menú de opciones:");
         System.out.println("1. Registrarse");
         System.out.println("2. login");
-        System.out.print("Ingrese el número de opción: ");
+        System.out.println("Ingrese el número de opción: ");
         int opcion = scanner.nextInt();
+        scanner.nextLine();
         switch (opcion) {
             case 1 -> registrarUsuario();
             case 2 -> {
-                System.out.print("Ingrese su email: ");
-                String email = scanner.nextLine();
-                scanner.nextLine();
+                System.out.println("Ingrese su email: ");
+                Scanner scanner2 = new Scanner(System.in);
+                String email = scanner2.nextLine();
+                System.out.print(email);
                 System.out.print("Ingrese su clave: ");
                 String clave = scanner.nextLine();
+                System.out.print(clave);
                 Usuario user = logIn(email, clave);
                 if (!user.equals(null)) {
-                    Scanner scanner2 = new Scanner(System.in);
+                    Scanner scanner3 = new Scanner(System.in);
                     System.out.println("1. Comprar pasaje");
                     System.out.println("2. Salir");
                     System.out.print("Ingrese el número de opción: ");
-                    int opcion2 = scanner2.nextInt();
+                    int opcion2 = scanner3.nextInt();
                     switch (opcion2) {
                         case 1 -> {
                             Filtro filtro = menuDeFiltrado();
