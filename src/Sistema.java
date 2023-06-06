@@ -10,12 +10,6 @@ public class Sistema {
         this.usuarios = new ArrayList<>();
     }
 
-    public void addUsuario(Usuario u){
-        this.usuarios.add(u);
-    }
-    public void addViaje(Viaje v){
-        this.viajes.add(v);
-    }
     public void registrarUsuario() {             //la tarjeta la paso en null por motivos practicos y el usuario
         // no lo estoy guardando en ninguna lado
         Scanner scanner = new Scanner(System.in);
@@ -99,149 +93,133 @@ public class Sistema {
         //preguntar si quiere comprar mas pasajes
     }
 
-    public Filtro crearFiltro() {
+    public Filtro menuDeFiltrado() {
         Scanner scanner = new Scanner(System.in);
-        Filtro p = null;
-        int opcion;
-        do {
-            System.out.println("Opciones por las cuales filtrar:"); //no imprementamos las combianciones de todos los filtros
-            System.out.println("1. Por destino :");
-            System.out.println("2. Por fecha de salidad :");
-            System.out.println("3. Por fecha de llegada :");
-            System.out.println("4. Por horario llegada :");
-            System.out.println("5. Por horario salida :");
-            System.out.println("6. Por costo :");
-            opcion = scanner.nextInt();
+        System.out.println("Opciones por las cuales filtrar:"); //no imprementamos las combianciones de todos los filtros
+        System.out.println("1. Por destino :");
+        System.out.println("2. Por fecha de salidad :");
+        System.out.println("3. Por fecha de llegada :");
+        System.out.println("4. Por horario llegada :");
+        System.out.println("5. Por horario salida :");
+        System.out.println("6. Por costo :");
+        int opcion = scanner.nextInt();
 
-            switch (opcion) {
-                case 1 -> {
-                    System.out.println("1. ingrese destino:");
-                    String destino = scanner.nextLine();
-                    System.out.println("llego");
-                    p = new FiltroDestino(destino);
-                    return p;
-                }
-                case 2 -> {
-                    System.out.println("2. Ingrese fecha salida:");
-                    System.out.print("Ingrese el día: ");
-                    int dia = scanner.nextInt();
-                    System.out.print("Ingrese el mes: ");
-                    int mes = scanner.nextInt();
-                    System.out.print("Ingrese el año: ");
-                    int anio = scanner.nextInt();
-                    Date fecha2 = new Date(anio, mes, dia);
-                    System.out.print("Ingrese el día: ");
-                    dia = scanner.nextInt();
-                    System.out.print("Ingrese el mes: ");
-                    mes = scanner.nextInt();
-                    System.out.print("Ingrese el año: ");
-                    anio = scanner.nextInt();
-                    Date fecha3 = new Date(anio, mes, dia);
-                    p = new FiltroFechaLlegada(fecha2, fecha3);
-                    return p;
-                }
-                case 3 -> {
-                    System.out.println("3. Ingrese fecha de llegada:");
-                    System.out.print("Ingrese el día: ");
-                    int dia = scanner.nextInt();
-                    System.out.print("Ingrese el mes: ");
-                    int mes = scanner.nextInt();
-                    System.out.print("Ingrese el año: ");
-                    int anio = scanner.nextInt();
-                    Date fecha = new Date(dia, mes, anio);
-                    System.out.print("Ingrese el día: ");
-                    dia = scanner.nextInt();
-                    System.out.print("Ingrese el mes: ");
-                    mes = scanner.nextInt();
-                    System.out.print("Ingrese el año: ");
-                    anio = scanner.nextInt();
-                    Date fecha1 = new Date(dia, mes, anio);
-                    p = new FiltroFechaSalida(fecha, fecha1);
-                    return p;
-                }
-                case 4 -> {
-                    System.out.println("4. Ingrese horario llegada:");
-                    System.out.print("Entre las: ");
-                    int hora = scanner.nextInt();
-                    System.out.print("Y las: ");
-                    int hora1 = scanner.nextInt();
-                    p = new FiltroHorarioLlegada(hora, hora1);
-                    return p;
-                }
-                case 5 -> {
-                    System.out.println("5. Ingrese horario salida:");
-                    System.out.print("Entre las: ");
-                    int hora2 = scanner.nextInt();
-                    System.out.print("Y las: ");
-                    int hora3 = scanner.nextInt();
-                    FiltroHorarioSalida s1 = new FiltroHorarioSalida(hora2, hora3);
-                    p = s1;
-                    return p;
-                }
-                case 6 -> {
-                    System.out.println("6. Ingrese costo maximo:");
-                    System.out.print("Entre los: ");
-                    int c = scanner.nextInt();
-                    System.out.print("Y los: ");
-                    int c1 = scanner.nextInt();
-                    FiltroCosto c3 = new FiltroCosto(c, c1);
-                    p = c3;
-                    return p;
-                }
-                default -> System.out.println("Opción inválida. Intente nuevamente.");
+        switch (opcion) {
+            case 1 -> {
+                System.out.println("1. ingrese destino:");
+                String destino = scanner.nextLine();
+                System.out.println("llego");
+                return new FiltroDestino(destino);
+            }
+            case 2 -> {
+                System.out.println("2. Ingrese fecha salida:");
+                System.out.print("Ingrese el día: ");
+                int dia = scanner.nextInt();
+                System.out.print("Ingrese el mes: ");
+                int mes = scanner.nextInt();
+                System.out.print("Ingrese el año: ");
+                int anio = scanner.nextInt();
+                Date fecha2 = new Date(anio, mes, dia);
+                System.out.print("Ingrese el día: ");
+                dia = scanner.nextInt();
+                System.out.print("Ingrese el mes: ");
+                mes = scanner.nextInt();
+                System.out.print("Ingrese el año: ");
+                anio = scanner.nextInt();
+                Date fecha3 = new Date(anio, mes, dia);
+                return new FiltroFechaLlegada(fecha2, fecha3);
+            }
+            case 3 -> {
+                System.out.println("3. Ingrese fecha de llegada:");
+                System.out.print("Ingrese el día: ");
+                int dia = scanner.nextInt();
+                System.out.print("Ingrese el mes: ");
+                int mes = scanner.nextInt();
+                System.out.print("Ingrese el año: ");
+                int anio = scanner.nextInt();
+                Date fecha = new Date(dia, mes, anio);
+                System.out.print("Ingrese el día: ");
+                dia = scanner.nextInt();
+                System.out.print("Ingrese el mes: ");
+                mes = scanner.nextInt();
+                System.out.print("Ingrese el año: ");
+                anio = scanner.nextInt();
+                Date fecha1 = new Date(dia, mes, anio);
+                return new FiltroFechaSalida(fecha, fecha1);
+            }
+            case 4 -> {
+                System.out.println("4. Ingrese horario llegada:");
+                System.out.print("Entre las: ");
+                int hora = scanner.nextInt();
+                System.out.print("Y las: ");
+                int hora1 = scanner.nextInt();
+                return new FiltroHorarioLlegada(hora, hora1);
+            }
+            case 5 -> {
+                System.out.println("5. Ingrese horario salida:");
+                System.out.print("Entre las: ");
+                int hora2 = scanner.nextInt();
+                System.out.print("Y las: ");
+                int hora3 = scanner.nextInt();
+                return new FiltroHorarioSalida(hora2, hora3);
+            }
+            case 6 -> {
+                System.out.println("6. Ingrese costo maximo:");
+                System.out.print("Entre los: ");
+                int c = scanner.nextInt();
+                System.out.print("Y los: ");
+                int c1 = scanner.nextInt();
+                return new FiltroCosto(c, c1);
             }
         }
-        while (opcion != 7);
-        scanner.close();
-        return p;
+        while(opcion > 6){
+            System.out.println("Opción inválida. Intente nuevamente.");
+            menuDeFiltrado();
+        }
+        return null;
     }
 
     public void MenuPasajes() {
         Scanner scanner = new Scanner(System.in);
-        int opcion;
-
-        do {
-            System.out.println("Menú de opciones:");
-            System.out.println("1. Registrarse");
-            System.out.println("2. login");
-            System.out.print("Ingrese el número de opción: ");
-            opcion = scanner.nextInt();
-
-            switch (opcion) {
-                case 1 -> registrarUsuario();
-                case 2 -> {
-                    System.out.print("Ingrese su email: ");
-                    String email = scanner.nextLine();
-                    scanner.nextLine();
-                    System.out.print("Ingrese su clave: ");
-                    String clave = scanner.nextLine();
-                    Usuario u = logIn(email, clave);
-                    if (!u.equals(null)) {
-                        Scanner scanner2 = new Scanner(System.in);
-                        int opcion2;
-                        do {
-                            System.out.println("1. Comprar pasaje");
-                            System.out.println("2. Salir");
-                            System.out.print("Ingrese el número de opción: ");
-                            opcion2 = scanner2.nextInt();
-                            switch (opcion2) {
-                                case 1 -> {
-                                    Filtro f = crearFiltro();
-                                    buscarPasaje(f, u);
-                                }
-                                case 2 -> System.out.println("¡Hasta luego!");
-                                default -> System.out.println("Opción inválida. Intente nuevamente.");
-                            }
+        System.out.println("Menú de opciones:");
+        System.out.println("1. Registrarse");
+        System.out.println("2. login");
+        System.out.print("Ingrese el número de opción: ");
+        int opcion = scanner.nextInt();
+        switch (opcion) {
+            case 1 -> registrarUsuario();
+            case 2 -> {
+                System.out.print("Ingrese su email: ");
+                String email = scanner.nextLine();
+                scanner.nextLine();
+                System.out.print("Ingrese su clave: ");
+                String clave = scanner.nextLine();
+                Usuario user = logIn(email, clave);
+                if (!user.equals(null)) {
+                    Scanner scanner2 = new Scanner(System.in);
+                    System.out.println("1. Comprar pasaje");
+                    System.out.println("2. Salir");
+                    System.out.print("Ingrese el número de opción: ");
+                    int opcion2 = scanner2.nextInt();
+                    switch (opcion2) {
+                        case 1 -> {
+                            Filtro filtro = menuDeFiltrado();
+                            buscarPasaje(filtro, user);
                         }
-                        while (opcion2 != 3);
-                        scanner2.close();
-
+                        case 2 -> System.out.println("¡Hasta luego!");
+                    }
+                    while (opcion2 > 2){
+                        System.out.println("Opción inválida. Intente nuevamente.");
+                        MenuPasajes();
                     }
                 }
             }
-
         }
-        while (opcion != 3);
-        scanner.close();
+    }
+    public void addUsuario(Usuario user){
+        this.usuarios.add(user);
+    }
+    public void addViaje(Viaje viaje){
+        this.viajes.add(viaje);
     }
 }
