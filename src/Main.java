@@ -3,14 +3,14 @@ import java.util.Date;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {System.out.println("Menú de opciones:");
-     Sistema s = new Sistema(null,null);
+     Sistema s = new Sistema();
         Usuario f = new Usuario("fermin","laraste",123, "fer", "1234", null);
         Usuario c= new Usuario("franco","carafo",234 , "fran", "2345", null);
         Usuario t = new Usuario("tadeo", "villa",345 , "tade", "3456", null);
         Usuario m =new Usuario("matias", "rodriguez", 456, "mat", "4567", null);
         Usuario h =new Usuario("hector", "halty",567 , "hec", "5678", null);
         Usuario si = new Usuario("simon", "diez", 678, "sim", "6789", null);
-      s.addUsuario(si);s.addUsuario(h);s.addUsuario(m);s.addUsuario(t);s.addUsuario(c);s.addUsuario(f);
+        s.addUsuario(si);s.addUsuario(h);s.addUsuario(m);s.addUsuario(t);s.addUsuario(c);s.addUsuario(f);
         Viaje v1 = new Viaje(new Date(2022, 3, 1), new Date(2022, 3, 2), "Empresa 2", 40, "Tandil", "Azul", 150, 9, 13);
         Viaje v2 = new Viaje(new Date(2022, 4, 10), new Date(2022, 4, 12), "Empresa 1", 60, "Mar del Plata", "Buenos Aires", 200, 10, 14);
         Viaje v3 = new Viaje(new Date(2022, 6, 20), new Date(2022, 6, 25), "Empresa 3", 30, "Bariloche", "Córdoba", 300, 11, 15);

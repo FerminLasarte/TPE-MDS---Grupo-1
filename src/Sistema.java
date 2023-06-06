@@ -1,20 +1,15 @@
-import java.util.ArrayList;
-import java.time.LocalDate;
+import java.util.*;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.Date;
 public class Sistema {
     private ArrayList<Viaje> viajes;
     private ArrayList<Usuario> usuarios;
 
-    public Sistema(ArrayList<Viaje> viajes, ArrayList<Usuario> usuarios) {
-        this.viajes = new ArrayList<Viaje>();
-        this.usuarios = new ArrayList<Usuario>();
+    public Sistema() {
+        this.viajes = new ArrayList<>();
+        this.usuarios = new ArrayList<>();
     }
 
-    public ArrayList<Usuario> getUsuarios() {
-        return usuarios;
-    }
     public void addUsuario(Usuario u){
         this.usuarios.add(u);
     }
@@ -56,13 +51,10 @@ public class Sistema {
     }
 
     public void buscarPasaje(Filtro f, Usuario u) {
-        ArrayList<Viaje> aux = new ArrayList<Viaje>();
-        for (Viaje v : viajes) {
+        ArrayList<Viaje> aux = new ArrayList<>();
+        for (Viaje v : viajes)
             aux.add(v.cumpleViaje(f));
-        }
-        if (aux.isEmpty()) {
-            System.out.println("No hay viajes que coincidan con los criterios establecidos.");
-        } else {
+        if (!aux.isEmpty()) {
             int i = 0;
             for (Viaje a : aux) {
                 System.out.println("-----------------------------------------------------------");
@@ -71,6 +63,8 @@ public class Sistema {
                 System.out.println("-----------------------------------------------------------");
                 i++;
             }
+        } else {
+            System.out.println("No hay viajes que coincidan con los criterios establecidos.");
         }
         Scanner scanner = new Scanner(System.in);
         System.out.println("¿Desea comprar un pasaje?: s/n");
@@ -80,8 +74,8 @@ public class Sistema {
             int pasaje = scanner.nextInt();
             comprarPasaje(aux.get(pasaje), u);
         }
-
     }
+
 
     public void comprarPasaje(Viaje v, Usuario u) {
         if (u.getTarjeta() == null) {
@@ -107,7 +101,7 @@ public class Sistema {
 
     public Filtro crearFiltro() {
         Scanner scanner = new Scanner(System.in);
-        Filtro p=null;
+        Filtro p = null;
         int opcion;
         do {
             System.out.println("Opciones por las cuales filtrar:"); //no imprementamos las combianciones de todos los filtros
@@ -120,16 +114,15 @@ public class Sistema {
             opcion = scanner.nextInt();
 
             switch (opcion) {
-                case 1:
+                case 1 -> {
                     System.out.println("1. ingrese destino:");
                     String destino = scanner.nextLine();
                     System.out.println("llego");
-                    FiltroDestino f = new FiltroDestino(destino);
-                    //p=f;
-
-                    return f;
-
-                case 2:System.out.println("2. Ingrese fecha salida:");
+                    p = new FiltroDestino(destino);
+                    return p;
+                }
+                case 2 -> {
+                    System.out.println("2. Ingrese fecha salida:");
                     System.out.print("Ingrese el día: ");
                     int dia = scanner.nextInt();
                     System.out.print("Ingrese el mes: ");
@@ -144,19 +137,18 @@ public class Sistema {
                     System.out.print("Ingrese el año: ");
                     anio = scanner.nextInt();
                     Date fecha3 = new Date(anio, mes, dia);
-                    FiltroFechaLlegada f1 = new FiltroFechaLlegada(fecha2, fecha3);
-                    p=f1;
+                    p = new FiltroFechaLlegada(fecha2, fecha3);
                     return p;
-                case 3:
+                }
+                case 3 -> {
                     System.out.println("3. Ingrese fecha de llegada:");
                     System.out.print("Ingrese el día: ");
-                    dia = scanner.nextInt();
+                    int dia = scanner.nextInt();
                     System.out.print("Ingrese el mes: ");
-                    mes = scanner.nextInt();
+                    int mes = scanner.nextInt();
                     System.out.print("Ingrese el año: ");
-                    anio = scanner.nextInt();
+                    int anio = scanner.nextInt();
                     Date fecha = new Date(dia, mes, anio);
-                    ;
                     System.out.print("Ingrese el día: ");
                     dia = scanner.nextInt();
                     System.out.print("Ingrese el mes: ");
@@ -164,38 +156,39 @@ public class Sistema {
                     System.out.print("Ingrese el año: ");
                     anio = scanner.nextInt();
                     Date fecha1 = new Date(dia, mes, anio);
-                    FiltroFechaSalida f2 = new FiltroFechaSalida(fecha, fecha1);
-                    p=f2;
+                    p = new FiltroFechaSalida(fecha, fecha1);
                     return p;
-                case 4:
+                }
+                case 4 -> {
                     System.out.println("4. Ingrese horario llegada:");
                     System.out.print("Entre las: ");
                     int hora = scanner.nextInt();
                     System.out.print("Y las: ");
                     int hora1 = scanner.nextInt();
-                    FiltroHorarioLlegada s = new FiltroHorarioLlegada(hora, hora1);
-                    p=s;
+                    p = new FiltroHorarioLlegada(hora, hora1);
                     return p;
-                case 5:
+                }
+                case 5 -> {
                     System.out.println("5. Ingrese horario salida:");
                     System.out.print("Entre las: ");
                     int hora2 = scanner.nextInt();
                     System.out.print("Y las: ");
                     int hora3 = scanner.nextInt();
                     FiltroHorarioSalida s1 = new FiltroHorarioSalida(hora2, hora3);
-                    p=s1;
+                    p = s1;
                     return p;
-                case 6:
+                }
+                case 6 -> {
                     System.out.println("6. Ingrese costo maximo:");
                     System.out.print("Entre los: ");
                     int c = scanner.nextInt();
                     System.out.print("Y los: ");
                     int c1 = scanner.nextInt();
                     FiltroCosto c3 = new FiltroCosto(c, c1);
-                    p=c3;
+                    p = c3;
                     return p;
-                default:
-                    System.out.println("Opción inválida. Intente nuevamente.");
+                }
+                default -> System.out.println("Opción inválida. Intente nuevamente.");
             }
         }
         while (opcion != 7);
@@ -215,16 +208,13 @@ public class Sistema {
             opcion = scanner.nextInt();
 
             switch (opcion) {
-                case 1:
-                    registrarUsuario();
-                    break;
-                case 2:
+                case 1 -> registrarUsuario();
+                case 2 -> {
                     System.out.print("Ingrese su email: ");
                     String email = scanner.nextLine();
                     scanner.nextLine();
                     System.out.print("Ingrese su clave: ");
                     String clave = scanner.nextLine();
-
                     Usuario u = logIn(email, clave);
                     if (!u.equals(null)) {
                         Scanner scanner2 = new Scanner(System.in);
@@ -235,16 +225,12 @@ public class Sistema {
                             System.out.print("Ingrese el número de opción: ");
                             opcion2 = scanner2.nextInt();
                             switch (opcion2) {
-                                case 1:
+                                case 1 -> {
                                     Filtro f = crearFiltro();
                                     buscarPasaje(f, u);
-                                    break;
-                                case 2:
-                                    System.out.println("¡Hasta luego!");
-                                    break;
-                                default:
-                                    System.out.println("Opción inválida. Intente nuevamente.");
-                                    break;
+                                }
+                                case 2 -> System.out.println("¡Hasta luego!");
+                                default -> System.out.println("Opción inválida. Intente nuevamente.");
                             }
                         }
                         while (opcion2 != 3);
@@ -252,6 +238,7 @@ public class Sistema {
 
                     }
                 }
+            }
 
         }
         while (opcion != 3);
