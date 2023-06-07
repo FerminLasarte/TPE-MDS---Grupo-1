@@ -37,7 +37,7 @@ public class Sistema {
 
     public Usuario logIn(String email, String clave) {
         for (Usuario u : usuarios) {
-            if (u.getEmail().equals(email) || u.getClaveAcceso().equals(clave)) {
+            if (u.getEmail().equals(email) && u.getClaveAcceso().equals(clave)) {System.out.println("entra al if");
                 return u;
             }
         }
@@ -68,6 +68,7 @@ public class Sistema {
         if (c.equals("s") || c.equals("S")) {
             System.out.println("Ingrese el numero de viaje que desea comprar");
             int pasaje = scanner.nextInt();
+            scanner.nextLine();
             comprarPasaje(aux.get(pasaje), user);
         }
     }
@@ -105,12 +106,14 @@ public class Sistema {
         System.out.println("5. Por horario salida :");
         System.out.println("6. Por costo :");
         int opcion = scanner.nextInt();
-
+        scanner.nextLine();
         switch (opcion) {
             case 1 -> {
                 System.out.println("1. ingrese destino:");
                 String destino = scanner.nextLine();
+                scanner.nextLine();
                 System.out.println(destino);
+
                 return new FiltroDestino(destino);
             }
             case 2 -> {
@@ -193,14 +196,12 @@ public class Sistema {
             case 1 -> registrarUsuario();
             case 2 -> {
                 System.out.println("Ingrese su email: ");
-                Scanner scanner2 = new Scanner(System.in);
-                String email = scanner2.nextLine();
-                System.out.print(email);
+                String email = scanner.nextLine();
+
                 System.out.print("Ingrese su clave: ");
                 String clave = scanner.nextLine();
-                System.out.print(clave);
                 Usuario user = logIn(email, clave);
-                if (!user.equals(null)) {
+                if (user != null) {
                     Scanner scanner3 = new Scanner(System.in);
                     System.out.println("1. Comprar pasaje");
                     System.out.println("2. Salir");
@@ -218,6 +219,9 @@ public class Sistema {
                         MenuPasajes();
                     }
                 }
+                else
+                { System.out.println("El usuario no existe");}
+
             }
         }
     }
