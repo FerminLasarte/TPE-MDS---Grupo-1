@@ -30,22 +30,22 @@ public class Viaje {
 
     public void agregarPasajero(Usuario usuario) {
         if (cantidadAsientosLibres() < cupo) {
-            usuarios.add(usuario.getCopiaUsuario());
+            usuarios.add(usuario.getCopia());
         }
         // comunicar error
     }
 
-    public Viaje getCopiaViaje() {
+    public Viaje getCopia() {
         Viaje viajeAux = new Viaje(fechaSalida, fechaLlegada,nombreEmpresa, cupo, destino, origen, precio, horarioDeSalida, horarioDeLlegada);
         for (Usuario u : usuarios) {
-            viajeAux.agregarPasajero(u.getCopiaUsuario());
+            viajeAux.agregarPasajero(u.getCopia());
         }
         return viajeAux;
     }
 
     public Viaje cumpleViaje(Filtro f) {
         if (f.cumple(this))
-            return  this.getCopiaViaje();
+            return  this.getCopia();
         return null;
     }
 

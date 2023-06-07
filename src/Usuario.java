@@ -19,7 +19,7 @@ public class Usuario {
         viajesComprados = new ArrayList<Viaje>();
     }
 
-    public Usuario getCopiaUsuario() {
+    public Usuario getCopia() {
         Usuario usuarioAux = new Usuario(this.nombre, this.apellido, this.DNI, this.email, this.claveAcceso, this.tarjeta);
         return usuarioAux;
     }

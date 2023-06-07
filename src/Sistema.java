@@ -10,7 +10,8 @@ public class Sistema {
         this.usuarios = new ArrayList<>();
     }
 
-    public void registrarUsuario() {             //la tarjeta la paso en null por motivos practicos y el usuario
+    public void registrarUsuario() {
+        //la tarjeta la paso en null por motivos practicos y el usuario
         // no lo estoy guardando en ninguna lado
         Scanner scanner = new Scanner(System.in);
 
@@ -37,7 +38,7 @@ public class Sistema {
 
     public Usuario logIn(String email, String clave) {
         for (Usuario u : usuarios) {
-            if (u.getEmail().equals(email) && u.getClaveAcceso().equals(clave)) {System.out.println("entra al if");
+            if (u.getEmail().equals(email) && u.getClaveAcceso().equals(clave)) {
                 return u;
             }
         }
@@ -96,7 +97,49 @@ public class Sistema {
         //preguntar si quiere comprar mas pasajes
     }
 
-    public Filtro menuDeFiltrado() {
+    public void menuPasajes() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Menú de opciones:");
+        System.out.println("1. Registrarse");
+        System.out.println("2. login");
+        System.out.println("Ingrese el número de opción: ");
+        int opcion = scanner.nextInt();
+        scanner.nextLine();
+        switch (opcion) {
+            case 1 -> registrarUsuario();
+            case 2 -> {
+                System.out.println("Ingrese su email: ");
+                String email = scanner.nextLine();
+
+                System.out.print("Ingrese su clave: ");
+                String clave = scanner.nextLine();
+                Usuario user = logIn(email, clave);
+                if (user != null) {
+                    Scanner scanner3 = new Scanner(System.in);
+                    System.out.println("1. Comprar pasaje");
+                    System.out.println("2. Salir");
+                    System.out.print("Ingrese el número de opción: ");
+                    int opcion2 = scanner3.nextInt();
+                    switch (opcion2) {
+                        case 1 -> {
+                            Filtro filtro = menuFiltrado();
+                            buscarPasaje(filtro, user);
+                        }
+                        case 2 -> System.out.println("¡Hasta luego!");
+                    }
+                    while (opcion2 > 2){
+                        System.out.println("Opción inválida. Intente nuevamente.");
+                        menuPasajes();
+                    }
+                }
+                else
+                { System.out.println("El usuario no existe");}
+
+            }
+        }
+    }
+
+    public Filtro menuFiltrado() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Opciones por las cuales filtrar:"); //no imprementamos las combianciones de todos los filtros
         System.out.println("1. Por destino :");
@@ -179,52 +222,11 @@ public class Sistema {
         }
         while(opcion > 6){
             System.out.println("Opción inválida. Intente nuevamente.");
-            menuDeFiltrado();
+            menuFiltrado();
         }
         return null;
     }
 
-    public void MenuPasajes() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Menú de opciones:");
-        System.out.println("1. Registrarse");
-        System.out.println("2. login");
-        System.out.println("Ingrese el número de opción: ");
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
-        switch (opcion) {
-            case 1 -> registrarUsuario();
-            case 2 -> {
-                System.out.println("Ingrese su email: ");
-                String email = scanner.nextLine();
-
-                System.out.print("Ingrese su clave: ");
-                String clave = scanner.nextLine();
-                Usuario user = logIn(email, clave);
-                if (user != null) {
-                    Scanner scanner3 = new Scanner(System.in);
-                    System.out.println("1. Comprar pasaje");
-                    System.out.println("2. Salir");
-                    System.out.print("Ingrese el número de opción: ");
-                    int opcion2 = scanner3.nextInt();
-                    switch (opcion2) {
-                        case 1 -> {
-                            Filtro filtro = menuDeFiltrado();
-                            buscarPasaje(filtro, user);
-                        }
-                        case 2 -> System.out.println("¡Hasta luego!");
-                    }
-                    while (opcion2 > 2){
-                        System.out.println("Opción inválida. Intente nuevamente.");
-                        MenuPasajes();
-                    }
-                }
-                else
-                { System.out.println("El usuario no existe");}
-
-            }
-        }
-    }
     public void addUsuario(Usuario user){
         this.usuarios.add(user);
     }
