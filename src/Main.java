@@ -1,14 +1,13 @@
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
        Sistema s = new Sistema();
        Usuario f = new Usuario("fermin","laraste",123, "fer", "1234", null);
-       Usuario c= new Usuario("franco","carafo",234 , "fran", "2345", null);
+       Usuario c = new Usuario("franco","carafo",234 , "fran", "2345", null);
        Usuario t = new Usuario("tadeo", "villa",345 , "tade", "3456", null);
-       Usuario m =new Usuario("matias", "rodriguez", 456, "mat", "4567", null);
-       Usuario h =new Usuario("hector", "halty",567 , "hec", "5678", null);
+       Usuario m = new Usuario("matias", "rodriguez", 456, "mat", "4567", null);
+       Usuario h = new Usuario("hector", "halty",567 , "hec", "5678", null);
        Usuario si = new Usuario("simon", "diez", 678, "sim", "6789", null);
        s.addUsuario(si);s.addUsuario(h);s.addUsuario(m);s.addUsuario(t);s.addUsuario(c);s.addUsuario(f);
        Viaje v1 = new Viaje(new Date(2022, 3, 1), new Date(2022, 3, 2), "Empresa 2", 40, "Tandil", "Azul", 150, 9, 13);

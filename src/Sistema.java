@@ -101,24 +101,23 @@ public class Sistema {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Menú de opciones:");
         System.out.println("1. Registrarse");
-        System.out.println("2. login");
-        System.out.println("Ingrese el número de opción: ");
+        System.out.println("2. Iniciar Sesion");
+        System.out.print("Ingrese el número de opción: ");
         int opcion = scanner.nextInt();
         scanner.nextLine();
         switch (opcion) {
             case 1 -> registrarUsuario();
             case 2 -> {
-                System.out.println("Ingrese su email: ");
+                System.out.print("Ingrese su email: ");
                 String email = scanner.nextLine();
-
                 System.out.print("Ingrese su clave: ");
                 String clave = scanner.nextLine();
                 Usuario user = logIn(email, clave);
                 if (user != null) {
                     Scanner scanner3 = new Scanner(System.in);
-                    System.out.println("1. Comprar pasaje");
+                    System.out.println("1. Buscar / comprar pasaje");
                     System.out.println("2. Salir");
-                    System.out.print("Ingrese el número de opción: ");
+                    System.out.print("Ingrese opción que desea realizar: ");
                     int opcion2 = scanner3.nextInt();
                     switch (opcion2) {
                         case 1 -> {
@@ -132,8 +131,9 @@ public class Sistema {
                         menuPasajes();
                     }
                 }
-                else
-                { System.out.println("El usuario no existe");}
+                else {
+                    System.out.println("El usuario no existe");
+                }
 
             }
         }
@@ -141,15 +141,17 @@ public class Sistema {
 
     public Filtro menuFiltrado() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Opciones por las cuales filtrar:"); //no imprementamos las combianciones de todos los filtros
-        System.out.println("1. Por destino :");
-        System.out.println("2. Por fecha de salidad :");
-        System.out.println("3. Por fecha de llegada :");
-        System.out.println("4. Por horario llegada :");
-        System.out.println("5. Por horario salida :");
-        System.out.println("6. Por costo :");
-        int opcion = scanner.nextInt();
         scanner.nextLine();
+        System.out.println("Opciones por las cuales filtrar:"); //no imprementamos las combianciones de todos los filtros
+        System.out.println("1. Por destino.");
+        System.out.println("2. Por fecha de salidad.");
+        System.out.println("3. Por fecha de llegada.");
+        System.out.println("4. Por horario salida.");
+        System.out.println("5. Por horario llegada.");
+        System.out.println("6. Por costo.");
+        System.out.print("Ingrese la opcion que desea realizar: ");
+        int opcion = scanner.nextInt();
+        //scanner.nextLine();
         switch (opcion) {
             case 1 -> {
                 System.out.println("1. ingrese destino:");
@@ -196,14 +198,6 @@ public class Sistema {
                 return new FiltroFechaSalida(fecha, fecha1);
             }
             case 4 -> {
-                System.out.println("4. Ingrese horario llegada:");
-                System.out.print("Entre las: ");
-                int hora = scanner.nextInt();
-                System.out.print("Y las: ");
-                int hora1 = scanner.nextInt();
-                return new FiltroHorarioLlegada(hora, hora1);
-            }
-            case 5 -> {
                 System.out.println("5. Ingrese horario salida:");
                 System.out.print("Entre las: ");
                 int hora2 = scanner.nextInt();
@@ -211,13 +205,28 @@ public class Sistema {
                 int hora3 = scanner.nextInt();
                 return new FiltroHorarioSalida(hora2, hora3);
             }
+            case 5 -> {
+                System.out.println("4. Ingrese horario llegada:");
+                System.out.print("Entre las: ");
+                int hora = scanner.nextInt();
+                System.out.print("Y las: ");
+                int hora1 = scanner.nextInt();
+                return new FiltroHorarioLlegada(hora, hora1);
+            }
             case 6 -> {
-                System.out.println("6. Ingrese costo maximo:");
-                System.out.print("Entre los: ");
-                int c = scanner.nextInt();
-                System.out.print("Y los: ");
-                int c1 = scanner.nextInt();
-                return new FiltroCosto(c, c1);
+                System.out.println("6. Ingrese un rango de costos:");
+                System.out.print("Precio minimo a pagar ");
+                int costoMenor = scanner.nextInt();
+                System.out.print("Precio maximo a pagar: ");
+                int costoMayor = scanner.nextInt();
+                while (costoMayor < costoMenor) {
+                    System.out.print("El precio maximo debe ser mayor al precio minimo. Ingrese nuevamente.");
+                    System.out.print("Precio minimo a pagar ");
+                    costoMenor = scanner.nextInt();
+                    System.out.print("Precio maximo a pagar: ");
+                    costoMayor = scanner.nextInt();
+                }
+                return new FiltroCosto(costoMenor, costoMayor);
             }
         }
         while(opcion > 6){
