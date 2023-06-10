@@ -20,6 +20,5 @@ public class Main {
        Viaje v8 = new Viaje(new Date(2023, 2, 12), new Date(2023, 2, 14), "Empresa 1", 70, "Córdoba", "Buenos Aires", 230, 16, 20);
        s.addViaje(v1);s.addViaje(v2);s.addViaje(v3);s.addViaje(v4);s.addViaje(v5);s.addViaje(v6);s.addViaje(v7);s.addViaje(v8);
        s.menuPasajes();
-
     }
 }

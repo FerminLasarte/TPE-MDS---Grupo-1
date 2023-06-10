@@ -12,7 +12,6 @@ public class FiltroFechaSalida implements Filtro {
 
     @Override
     public boolean cumple(Viaje v) {
-
-        return (v.getFechaSalida().before(fecha1) && v.getFechaSalida().after(fecha2));
+        return (v.getFechaSalida().after(fecha1) && v.getFechaSalida().before(fecha2));
     }
 }
