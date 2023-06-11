@@ -53,8 +53,8 @@ public class Viaje {
         System.out.println("Origen: " + this.origen);
         System.out.println("Destino: " + this.destino);
         System.out.println("Empresa: " + this.nombreEmpresa);
-        System.out.println("Salida: " + this.fechaSalida + this.horarioDeSalida);
-        System.out.println("Llegada: " + this.fechaLlegada + this.horarioDeLlegada);
+        System.out.println("Salida: " + this.fechaSalida + " a las " + this.horarioDeSalida + "hs.");
+        System.out.println("Llegada: " + this.fechaLlegada + " a las " + this.horarioDeLlegada + "hs.");
         System.out.println("Asientos disponibles: " + this.cantidadAsientosLibres());
         System.out.println("Precio: " + this.precio);
     }

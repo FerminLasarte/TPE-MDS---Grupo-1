@@ -8,5 +8,7 @@ public class FiltroHorarioLlegada implements Filtro{
     }
 
     @Override
-    public boolean cumple(Viaje v) {return (v.getHorarioDeLlegada()>= horaMinima && v.getHorarioDeLlegada()<= horaMaxima);}
+    public boolean cumple(Viaje v) {
+        return (v.getHorarioDeLlegada()>= horaMinima && v.getHorarioDeLlegada()<= horaMaxima);
+    }
 }

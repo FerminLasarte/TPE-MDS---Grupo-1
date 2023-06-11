@@ -128,22 +128,29 @@ public class Sistema {
         System.out.print("Ingrese su clave de acceso: ");
         String clave = scanner.nextLine();
 
-        while (!validacionUsuario(email, clave)) {
-            System.out.println("Nombre de usuario o contraseña incorrectos.");
-            System.out.println("Si desea terminar el proceso, ingrese *salir*. Caso contrario, ingrese sus datos nuevamente.");
-            System.out.print("Ingrese su Email: ");
-            email = scanner.nextLine();
-            if (!email.equalsIgnoreCase("salir")) {
-                System.out.print("Ingrese su clave de acceso: ");
-                clave = scanner.nextLine();
-            }
-            else {
-                System.out.println("Muchas gracias.");
-                System.out.println();
-                menuInicioSistema();
+        if (email.equalsIgnoreCase("admin") && clave.equalsIgnoreCase("admin")) {
+            menuAdministrador();
+        }
+        else {
+            while (!validacionUsuario(email, clave)) {
+                System.out.println("Nombre de usuario o contraseña incorrectos.");
+                System.out.println("Si desea terminar el proceso, ingrese *salir*. Caso contrario, ingrese sus datos nuevamente.");
+                System.out.print("Ingrese su Email: ");
+                email = scanner.nextLine();
+                if (!email.equalsIgnoreCase("salir")) {
+                    System.out.print("Ingrese su clave de acceso: ");
+                    clave = scanner.nextLine();
+                }
+                else {
+                    System.out.println("Muchas gracias.");
+                    System.out.println();
+                    menuInicioSistema();
+                }
             }
         }
     }
+
+    public void menuAdministrador() {}
 
     public boolean validacionUsuario(String email, String clave) {
         for (Usuario usuario : usuarios) {
@@ -158,12 +165,12 @@ public class Sistema {
 
     public void buscarPasaje(Filtro filtro, Usuario user) {
         ArrayList<Viaje> aux = new ArrayList<>();
+        int i = 0;
         for (Viaje v : viajes){
             if(v.cumpleViaje(filtro) != null)
                 aux.add(v.cumpleViaje(filtro));
         }
         if (!aux.isEmpty()) {
-            int i = 0;
             for (Viaje a : aux) {
                 System.out.println("-----------------------------------------------------------");
                 System.out.println("Numero de viaje: " + i);
@@ -176,12 +183,33 @@ public class Sistema {
         }
         Scanner scanner = new Scanner(System.in);
         System.out.println("¿Desea comprar un pasaje?: s/n");
-        String c = scanner.nextLine();
-        if (c.equals("s") || c.equals("S")) {
+        String opcionComprar = scanner.nextLine();
+        while (!opcionComprar.equalsIgnoreCase("s") && !opcionComprar.equalsIgnoreCase("n")) {
+            System.out.println("La opcion ingresada es incorrecta. Por favor, ingrese nuevamente.");
+            System.out.println("¿Desea comprar un pasaje?: s/n");
+            opcionComprar = scanner.nextLine();
+        }
+        if (opcionComprar.equalsIgnoreCase("s")) {
             System.out.print("Ingrese el numero de viaje que desea comprar: ");
             int pasaje = scanner.nextInt();
             scanner.nextLine();
-            comprarPasaje(aux.get(pasaje), user);
+            while (pasaje < 0 || pasaje > i) {
+                System.out.println("El pasaje ingresado no se encuentra disponible. Por favor, ingrese nuevamente.");
+                System.out.print("Ingrese el numero de viaje que desea comprar: ");
+                pasaje = scanner.nextInt();
+                scanner.nextLine();
+            }
+            System.out.println("Cantidad de asientos disponibles: " + aux.get(pasaje).cantidadAsientosLibres());
+            System.out.print("Ingrese la cantidad de pasajes que desea comprar: ");
+            int cantidadPasajes = scanner.nextInt();
+            scanner.nextLine();
+            while (cantidadPasajes < 0 || cantidadPasajes > aux.get(pasaje).cantidadAsientosLibres()) {
+                System.out.println("No se encuentran disponibles esa cantidad de pasajes.");
+                System.out.print("Por favor, ingrese nuevamente la cantidad de pasajes que desea comprar: ");
+                cantidadPasajes = scanner.nextInt();
+                scanner.nextLine();
+            }
+            comprarPasaje(aux.get(pasaje), user, cantidadPasajes);
         }
         else {
             System.out.println("Que tenga buen dia!");
@@ -191,32 +219,39 @@ public class Sistema {
         }
     }
 
-
-    public void comprarPasaje(Viaje v, Usuario u) {
-        if (u.getTarjeta() == null) {
+    public void comprarPasaje(Viaje viaje, Usuario usuario, int cantidadPasajes) {
+        // AGREGAR OPCIONES DE PAGO DE PASAJES
+        Scanner intScanner = new Scanner(System.in);
+        Scanner stringScanner = new Scanner(System.in);
+        if (usuario.getTarjeta() == null) {
             System.out.println("No tiene ninguna tarjeta asociada. Ingrese los datos de su tarjeta.");
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Nro Tarjeta: ");
-            int nroTarjeta = scanner.nextInt();
-            System.out.println("Banco Emisor: ");
-            String bancoEmisor = scanner.nextLine();
-            System.out.println("Marca: ");
-            String marcaTarjeta = scanner.nextLine();
-            System.out.println("Nombre Titular: ");
-            String nombreTitular = scanner.nextLine();
-            System.out.println("Codigo de Seguridad: ");
-            int codigoSeguridad = scanner.nextInt();
-            u.setTarjeta(new Tarjeta(nroTarjeta, bancoEmisor, marcaTarjeta, nombreTitular, codigoSeguridad));
-            //u.getTarjeta().validar();
+            System.out.print("Numero de Tarjeta: ");
+            int nroTarjeta = intScanner.nextInt();
+            intScanner.nextLine();
+            System.out.print("Banco Emisor: ");
+            String bancoEmisor = stringScanner.nextLine();
+            System.out.print("Marca: ");
+            String marcaTarjeta = stringScanner.nextLine();
+            System.out.print("Nombre Titular: ");
+            String nombreTitular = stringScanner.nextLine();
+            System.out.print("Codigo de Seguridad: ");
+            int codigoSeguridad = intScanner.nextInt();
+            intScanner.nextLine();
+            usuario.setTarjeta(new Tarjeta(nroTarjeta, bancoEmisor, marcaTarjeta, nombreTitular, codigoSeguridad));
         }
-        v.agregarPasajero(u);
-        u.addViaje(v);
-        //preguntar si quiere comprar mas pasajes
+        for (int i = 1; i <= cantidadPasajes; i++) {
+            viaje.agregarPasajero(usuario);
+            usuario.addViaje(viaje);
+        }
+        System.out.println("Su compra ha sido completada con exito! Recibira la informacion de/los pasaje/s por correo electronico.");
+        System.out.println("Muchas gracias por confiar en nosotros.");
+        menuPrincipal(usuario);
     }
 
     public void menuPrincipal(Usuario user) {
         Scanner scanner = new Scanner(System.in);
         System.out.println();
+        System.out.println("*MENU PRINCIPAL*");
         System.out.println("1. Buscar / comprar pasaje");
         System.out.println("2. Salir");
         System.out.print("Ingrese opción que desea realizar: ");
@@ -235,17 +270,16 @@ public class Sistema {
 
     public Filtro menuFiltrado() {
         Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+        System.out.println();
         System.out.println("Opciones por las cuales filtrar:"); //no imprementamos las combianciones de todos los filtros
         System.out.println("1. Por destino.");
-        System.out.println("2. Por fecha de salidad.");
+        System.out.println("2. Por fecha de salida.");
         System.out.println("3. Por fecha de llegada.");
         System.out.println("4. Por horario salida.");
         System.out.println("5. Por horario llegada.");
         System.out.println("6. Por costo.");
-        System.out.print("Ingrese la opcion que desea realizar: ");
+        System.out.print("Ingrese la opcion deseada: ");
         int opcion = scanner.nextInt();
-        //scanner.nextLine();
         switch (opcion) {
             case 1 -> {
                 Scanner stringScanner = new Scanner(System.in);
@@ -361,6 +395,7 @@ public class Sistema {
                 return new FiltroFechaLlegada(fechaMinimaLlegada, fechaMaximaLlegada);
             }
             case 4 -> {
+                // DATOS INGRESADOS PARA HORARIO MINIMO DE SALIDA
                 System.out.println("4. Ingrese horario salida:");
                 System.out.print("Horario minimo para salir: ");
                 int horarioMinimoSalida = scanner.nextInt();
@@ -369,6 +404,7 @@ public class Sistema {
                     System.out.print("Horario minimo para salir: ");
                     horarioMinimoSalida = scanner.nextInt();
                 }
+                // DATOS INGRESADOS PARA HORARIO MAXIMO DE SALIDA
                 System.out.print("Horario maximo para salir: ");
                 int horarioMaximoSalida = scanner.nextInt();
                 while (horarioMaximoSalida < horarioMinimoSalida || horarioMaximoSalida > 23) {
@@ -379,6 +415,7 @@ public class Sistema {
                 return new FiltroHorarioSalida(horarioMinimoSalida, horarioMaximoSalida);
             }
             case 5 -> {
+                // DATOS INGRESADOS PARA HORARIO MINIMO DE LLEGADA
                 System.out.println("5. Ingrese horario llegada:");
                 System.out.print("Horario minimo para llegar: ");
                 int horarioMinimoLlegada = scanner.nextInt();
@@ -387,6 +424,7 @@ public class Sistema {
                     System.out.print("Horario minimo para llegar: ");
                     horarioMinimoLlegada = scanner.nextInt();
                 }
+                // DATOS INGRESADOS PARA HORARIO MAXIMO DE LLEGADA
                 System.out.print("Horario maximo para llegar: ");
                 int horarioMaximoLlegada = scanner.nextInt();
                 while (horarioMaximoLlegada < horarioMinimoLlegada || horarioMaximoLlegada > 23) {
@@ -404,7 +442,7 @@ public class Sistema {
                 int costoMayor = scanner.nextInt();
                 while (costoMayor < costoMenor) {
                     System.out.println("El precio maximo debe ser mayor al precio minimo. Ingrese nuevamente.");
-                    System.out.print("Precio minimo a pagar ");
+                    System.out.print("Precio minimo a pagar: ");
                     costoMenor = scanner.nextInt();
                     System.out.print("Precio maximo a pagar: ");
                     costoMayor = scanner.nextInt();
