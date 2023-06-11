@@ -15,7 +15,7 @@ public class Sistema {
         System.out.println("Bienvenido al sistema de Plataforma 9 3/4!");
         System.out.println("1. Registrarse.");
         System.out.println("2. Iniciar Sesion.");
-        System.out.println("2. Salir.");
+        System.out.println("3. Salir.");
         System.out.print("Seleccione una opción: ");
         int opcion = scanner.nextInt();
         scanner.nextLine();
@@ -23,9 +23,7 @@ public class Sistema {
         switch (opcion) {
             case 1 -> registrarUsuario(scanner);
             case 2 -> iniciarSesion(scanner);
-            case 3 -> {
-                break;
-            }
+            case 3 -> {}
             default -> System.out.println("Opción inválida. Inténtelo nuevamente.");
         }
     }
@@ -127,26 +125,35 @@ public class Sistema {
         System.out.print("Ingrese su Email: ");
         String email = scanner.nextLine();
 
-        while (!existeUsuarioRegistrado(email)) {
-            System.out.println("El Email ingresado no pertenece a ningun usuario.");
-            System.out.print("Si desea terminar el proceso, ingrese *salir*. Caso contrario, ingrese su Email nuevamente: ");
-            email = scanner.nextLine();
-            if (email.equalsIgnoreCase("salir")) {
-                System.out.println("Muchas gracias.");
-                menuInicioSistema();
-            }
-        }
-
         System.out.print("Ingrese su clave de acceso: ");
         String clave = scanner.nextLine();
 
+        while (!validacionUsuario(email, clave)) {
+            System.out.println("Nombre de usuario o contraseña incorrectos.");
+            System.out.println("Si desea terminar el proceso, ingrese *salir*. Caso contrario, ingrese sus datos nuevamente.");
+            System.out.print("Ingrese su Email: ");
+            email = scanner.nextLine();
+            if (!email.equalsIgnoreCase("salir")) {
+                System.out.print("Ingrese su clave de acceso: ");
+                clave = scanner.nextLine();
+            }
+            else {
+                System.out.println("Muchas gracias.");
+                System.out.println();
+                menuInicioSistema();
+            }
+        }
+    }
+
+    public boolean validacionUsuario(String email, String clave) {
         for (Usuario usuario : usuarios) {
             if (usuario.getEmail().equals(email) && usuario.getClaveAcceso().equals(clave)) {
                 System.out.println("Inicio de sesion exitoso. Bienvenido, " + usuario.getNombre() + "!");
                 menuPrincipal(usuario);
+                return true;
             }
         }
-        System.out.println("Nombre de usuario o contraseña incorrectos. Inténtelo nuevamente.");
+        return false;
     }
 
     public void buscarPasaje(Filtro filtro, Usuario user) {
@@ -208,21 +215,21 @@ public class Sistema {
     }
 
     public void menuPrincipal(Usuario user) {
-        Scanner scanner3 = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println();
         System.out.println("1. Buscar / comprar pasaje");
         System.out.println("2. Salir");
         System.out.print("Ingrese opción que desea realizar: ");
-        int opcion2 = scanner3.nextInt();
-        switch (opcion2) {
+        int opcion = scanner.nextInt();
+        scanner.nextLine();
+        switch (opcion) {
             case 1 -> {
                 Filtro filtro = menuFiltrado();
                 buscarPasaje(filtro, user);
             }
             case 2 -> System.out.println("¡Hasta luego!");
-        }
-        while (opcion2 > 2){
-            System.out.println("Opción inválida. Intente nuevamente.");
-            menuInicioSistema();
+            default -> System.out.println("Opción inválida. Intente nuevamente.");
+
         }
     }
 
