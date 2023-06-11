@@ -10,11 +10,29 @@ public class Sistema {
         this.usuarios = new ArrayList<>();
     }
 
-    public void registrarUsuario() {
-        //la tarjeta la paso en null por motivos practicos y el usuario
-        // no lo estoy guardando en ninguna lado
+    public void menuInicioSistema() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Bienvenido al sistema de Plataforma 9 3/4!");
+        System.out.println("1. Registrarse.");
+        System.out.println("2. Iniciar Sesion.");
+        System.out.println("2. Salir.");
+        System.out.print("Seleccione una opción: ");
+        int opcion = scanner.nextInt();
+        scanner.nextLine();
 
+        switch (opcion) {
+            case 1 -> registrarUsuario(scanner);
+            case 2 -> iniciarSesion(scanner);
+            case 3 -> {
+                break;
+            }
+            default -> System.out.println("Opción inválida. Inténtelo nuevamente.");
+        }
+    }
+
+    public void registrarUsuario(Scanner scanner) {
+        // la tarjeta la paso en null por motivos practicos
+        // el usuario no se guarda en ninguna lado
         System.out.print("Ingrese su nombre: ");
         String nombre = scanner.nextLine();
 
@@ -25,24 +43,110 @@ public class Sistema {
         int dni = scanner.nextInt();
         scanner.nextLine(); // Consumir el carácter de nueva línea
 
-        System.out.print("Ingrese su email: ");
-        String email = scanner.nextLine();
+        String email = ingresarEmail(scanner);
 
-        System.out.print("Ingrese su clave de acceso: ");
-        String claveAcceso = scanner.nextLine();
+        String claveAcceso = ingresarClaveAcceso(scanner);
 
-        // Crear un objeto Usuario con los datos ingresados
-        Usuario usuario = new Usuario(nombre, apellido, dni, email, claveAcceso, null);
-        this.usuarios.add(usuario);
+        Usuario nuevoUsuario = new Usuario(nombre, apellido, dni, email, claveAcceso, null);
+        usuarios.add(nuevoUsuario);
+        System.out.println("¡Registro exitoso!");
     }
 
-    public Usuario logIn(String email, String clave) {
-        for (Usuario u : usuarios) {
-            if (u.getEmail().equals(email) && u.getClaveAcceso().equals(clave)) {
-                return u;
+    public String ingresarEmail(Scanner scanner) {
+        boolean registrado = false;
+        String email = null;
+
+        while (!registrado) {
+            System.out.print("Ingrese su email: ");
+            email = scanner.nextLine();
+
+            if (existeUsuarioRegistrado(email)) {
+                System.out.println("Ya existe un usuario con este Email. Intentelo nuevamente.");
+            } else {
+                registrado = true;
             }
         }
-        return null;
+        return email;
+    }
+
+    public boolean existeUsuarioRegistrado(String email) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String ingresarClaveAcceso(Scanner scanner) {
+        boolean claveValida = false;
+        String clave = null;
+        
+        while (!claveValida) {
+            System.out.print("Ingrese una clave de acceso (mínimo 8 caracteres, incluyendo al menos una minúscula, una mayúscula y un número): ");
+            clave = scanner.nextLine();
+
+            if (clave.length() >= 8 && contieneMinuscula(clave) && contieneMayuscula(clave) && contieneNumero(clave)) {
+                claveValida = true;
+            } else {
+                System.out.println("La clave de acceso no cumple con los requisitos. Inténtelo nuevamente.");
+            }
+        }
+
+        return clave;
+    }
+
+    public boolean contieneMinuscula(String clave) {
+        for (int i = 0; i < clave.length(); i++) {
+            if (Character.isLowerCase(clave.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean contieneMayuscula(String clave) {
+        for (int i = 0; i < clave.length(); i++) {
+            if (Character.isUpperCase(clave.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean contieneNumero(String clave) {
+        for (int i = 0; i < clave.length(); i++) {
+            if (Character.isDigit(clave.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void iniciarSesion(Scanner scanner) {
+        System.out.print("Ingrese su Email: ");
+        String email = scanner.nextLine();
+
+        while (!existeUsuarioRegistrado(email)) {
+            System.out.println("El Email ingresado no pertenece a ningun usuario.");
+            System.out.print("Si desea terminar el proceso, ingrese *salir*. Caso contrario, ingrese su Email nuevamente: ");
+            email = scanner.nextLine();
+            if (email.equalsIgnoreCase("salir")) {
+                System.out.println("Muchas gracias.");
+                menuInicioSistema();
+            }
+        }
+
+        System.out.print("Ingrese su clave de acceso: ");
+        String clave = scanner.nextLine();
+
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEmail().equals(email) && usuario.getClaveAcceso().equals(clave)) {
+                System.out.println("Inicio de sesion exitoso. Bienvenido, " + usuario.getNombre() + "!");
+                menuPrincipal(usuario);
+            }
+        }
+        System.out.println("Nombre de usuario o contraseña incorrectos. Inténtelo nuevamente.");
     }
 
     public void buscarPasaje(Filtro filtro, Usuario user) {
@@ -118,33 +222,7 @@ public class Sistema {
         }
         while (opcion2 > 2){
             System.out.println("Opción inválida. Intente nuevamente.");
-            menuPasajes();
-        }
-    }
-
-    public void menuPasajes() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Menú de opciones:");
-        System.out.println("1. Registrarse.");
-        System.out.println("2. Iniciar Sesion.");
-        System.out.print("Ingrese el número de opción: ");
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
-        switch (opcion) {
-            case 1 -> registrarUsuario();
-            case 2 -> {
-                System.out.print("Ingrese su email: ");
-                String email = scanner.nextLine();
-                System.out.print("Ingrese su clave: ");
-                String clave = scanner.nextLine();
-                Usuario user = logIn(email, clave);
-                if (user != null) {
-                    menuPrincipal(user);
-                }
-                else {
-                    System.out.println("El usuario no existe");
-                }
-            }
+            menuInicioSistema();
         }
     }
 
@@ -163,10 +241,9 @@ public class Sistema {
         //scanner.nextLine();
         switch (opcion) {
             case 1 -> {
+                Scanner stringScanner = new Scanner(System.in);
                 System.out.print("1. Ingrese el destino: ");
-                String destino = scanner.nextLine();
-                scanner.nextLine();
-                System.out.println(destino);
+                String destino = stringScanner.nextLine();
 
                 return new FiltroDestino(destino);
             }

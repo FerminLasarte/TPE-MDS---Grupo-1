@@ -8,7 +8,9 @@ public class FiltroCosto implements Filtro{
     }
 
     @Override
-    public boolean cumple(Viaje v) {return (v.getPrecio()>= precioMinimo && v.getPrecio()<= precioMaximo);}
+    public boolean cumple(Viaje v) {
+        return (v.getPrecio()>= precioMinimo && v.getPrecio()<= precioMaximo);
+    }
 }
 
 

@@ -7,6 +7,6 @@ public class FiltroDestino implements Filtro {
     }
     @Override
     public boolean cumple(Viaje v) {
-        return v.getDestino().equals(this.destino);
+        return v.getDestino().equalsIgnoreCase(this.destino);
     }
 }
