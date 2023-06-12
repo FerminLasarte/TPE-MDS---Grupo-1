@@ -24,10 +24,6 @@ public class Usuario {
         return usuarioAux;
     }
 
-    public void comprar(Filtro f){
-
-    }
-
     public String getNombre() {
         return nombre;
     }
