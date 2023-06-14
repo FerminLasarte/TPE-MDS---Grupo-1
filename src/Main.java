@@ -10,12 +10,14 @@ public class Main {
        Usuario m = new Usuario("matias", "rodriguez", 456, "mat", "4567", null);
        Usuario h = new Usuario("hector", "halty",567 , "hec", "5678", null);
        Usuario s = new Usuario("simon", "diez", 678, "sim", "6789", null);
+       Usuario j = new Usuario("Juan","Perez",45000000,"jp@gmail.com","Juan1234",null);
        sistema.addUsuario(s);
        sistema.addUsuario(h);
        sistema.addUsuario(m);
        sistema.addUsuario(t);
        sistema.addUsuario(c);
        sistema.addUsuario(f);
+       sistema.addUsuario(j);
 
        Viaje v1 = new Viaje(new Date(2022, 3, 1), new Date(2022, 3, 2), "Empresa 2", 40, "Tandil", "Azul", 150, 9, 13);
        Viaje v2 = new Viaje(new Date(2022, 4, 10), new Date(2022, 4, 12), "Empresa 1", 60, "Mar del Plata", "Buenos Aires", 200, 10, 14);

@@ -37,7 +37,7 @@ public class Sistema {
         System.out.println("MENU PRINCIPAL");
         System.out.println("1. Buscar / comprar pasaje");
         System.out.println("2. Salir");
-        System.out.print("Ingrese opción que desea realizar: ");
+        System.out.print("Ingrese el nro de opción que desea realizar: ");
         int opcion = scanner.nextInt();
         scanner.nextLine();
         switch (opcion) {
@@ -182,7 +182,6 @@ public class Sistema {
             else {
                 System.out.println("Que tenga buen dia!");
                 System.out.println();
-                System.out.println("Ingrese 1 para volver a realizar una operacion. Ingrese 2 si desea salir del sistema.");
                 menuPrincipal(user);
             }
         }

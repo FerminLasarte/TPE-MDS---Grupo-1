@@ -32,7 +32,6 @@ public class Viaje {
         if (cantidadAsientosLibres() < cupo) {
             usuarios.add(usuario.getCopia());
         }
-        // comunicar error
     }
 
     public Viaje getCopia() {
