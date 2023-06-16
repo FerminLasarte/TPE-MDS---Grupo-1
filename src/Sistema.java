@@ -10,6 +10,7 @@ public class Sistema {
         this.usuarios = new ArrayList<>();
     }
 
+
     public void menuInicioSistema() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bienvenido al sistema de Plataforma 9 3/4!");
@@ -36,7 +37,8 @@ public class Sistema {
         System.out.println();
         System.out.println("MENU PRINCIPAL");
         System.out.println("1. Buscar / comprar pasaje");
-        System.out.println("2. Salir");
+        System.out.println("2. Cerrar Sesión");
+        System.out.println("3. Salir");
         System.out.print("Ingrese el nro de opción que desea realizar: ");
         int opcion = scanner.nextInt();
         scanner.nextLine();
@@ -45,7 +47,8 @@ public class Sistema {
                 Filtro filtro = menuFiltrado();
                 buscarPasaje(filtro, user);
             }
-            case 2 -> System.out.println("¡Hasta luego!");
+            case 2 -> menuInicioSistema();
+            case 3 -> System.out.println("¡Hasta luego!");
             default -> {
                 System.out.println("Opción inválida. Intente nuevamente.");
                 menuPrincipal(user);
@@ -54,7 +57,69 @@ public class Sistema {
     }
 
     public void menuAdministrador() {
-        //OPCION DE AGREGAR VIAJE
+        Scanner scanner = new Scanner(System.in);
+        System.out.println();
+        System.out.println("MENU ADMINISTRADOR");
+        System.out.println("1. Agregar Viaje");
+        System.out.println("2. Cerrar Sesión");
+        System.out.println("3. Salir");
+        System.out.print("Ingrese el nro de opción que desea realizar: ");
+        int opcion = scanner.nextInt();
+        scanner.nextLine();
+        switch (opcion) {
+            case 1 -> {
+                adminAgregaViaje(scanner);
+                menuAdministrador();
+            }
+            case 2 -> menuInicioSistema();
+            case 3 -> System.out.println("¡Hasta luego!");
+            default -> {
+                System.out.println("Opción inválida. Intente nuevamente.");
+                menuAdministrador();
+            }
+        }
+    }
+
+    public void adminAgregaViaje(Scanner scanner){
+        System.out.print("Ingrese el origen: ");
+        String origen = scanner.nextLine();
+        System.out.print("Ingrese el destino: ");
+        String destino = scanner.nextLine();
+        System.out.print("Ingrese el nombre de la empresa: ");
+        String empresa = scanner.nextLine();
+        System.out.print("Ingrese el cupo: ");
+        int cupo = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Ingrese el dia de salida: ");
+        int diaSalida = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Ingrese el mes de salida: ");
+        int mesSalida = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Ingrese el anio de salida: ");
+        int anioSalida = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Ingrese la hora de salida: ");
+        int horaSalida = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Ingrese el dia de llegada: ");
+        int diaLlegada = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Ingrese el mes de llegada: ");
+        int mesLlegada = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Ingrese el anio de llegada: ");
+        int anioLlegada = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Ingrese la hora de llegada: ");
+        int horaLlegada = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Ingrese el costo del viaje: ");
+        int precio = scanner.nextInt();
+        Viaje nuevo = new Viaje(new Date(anioSalida,mesSalida,diaSalida),new Date(anioLlegada,mesLlegada,mesSalida), empresa,cupo,destino,origen,precio,horaSalida,horaLlegada);
+        this.viajes.add(nuevo);
+        System.out.println("El viaje ha sido agregado correctamente. Los datos del mismo son:");
+        nuevo.imprimirViaje();
     }
 
     public void registrarUsuario(Scanner scanner) {
