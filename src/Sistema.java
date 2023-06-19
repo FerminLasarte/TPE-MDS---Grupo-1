@@ -5,7 +5,6 @@ public class Sistema {
     private ArrayList<Viaje> viajes;
     private ArrayList<Usuario> usuarios;
     private Menu menu;
-    private Verificador verificador;
 
     public Sistema() {
         this.viajes = new ArrayList<>();
@@ -275,7 +274,7 @@ public class Sistema {
             System.out.print("Ingrese una clave de acceso (mínimo 8 caracteres, incluyendo al menos una minúscula, una mayúscula y un número): ");
             clave = scanner.nextLine();
 
-            if (clave.length() >= 8 && verificador.contieneMinuscula(clave) && verificador.contieneMayuscula(clave) && verificador.contieneNumero(clave)) {
+            if (clave.length() >= 8 && Verificador.contieneMinuscula(clave) && Verificador.contieneMayuscula(clave) && Verificador.contieneNumero(clave)) {
                 claveValida = true;
             } else {
                 System.out.println("La clave de acceso no cumple con los requisitos. Inténtelo nuevamente.");
