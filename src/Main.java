@@ -35,6 +35,6 @@ public class Main {
        sistema.addViaje(v6);
        sistema.addViaje(v7);
        sistema.addViaje(v8);
-       sistema.menuInicioSistema();
+       sistema.iniciar();
     }
 }
