@@ -14,7 +14,7 @@ public class ManejadorArchivos {
             ex.printStackTrace(System.out);
         }
     }
-
+    */
     public static void escribirArchivo(String nombreArchivo, String contenido){
         File archivo = new File(nombreArchivo);
         try {
@@ -24,9 +24,10 @@ public class ManejadorArchivos {
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
         }
-    }*/
+    }
 
-    //LECTURA Y ESCRITURA DE VIAJES EN EL ARCHIVO Viajes.txt
+    //LECTURA DE VIAJES EN EL ARCHIVO Viajes.txt
+    /*
     public static void agregarViajeAlArchivo(String nombreArchivo) {
         Scanner scanner = new Scanner(System.in);
 
@@ -79,10 +80,10 @@ public class ManejadorArchivos {
             return obtenerFecha(scanner.nextLine(), dateFormat);
         }
     }
+    */
 
     public static ArrayList<Viaje> leerArchivoViajes(String nombreArchivo) {
         ArrayList<Viaje> viajes = new ArrayList<>();
-
         try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -92,14 +93,21 @@ public class ManejadorArchivos {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return viajes;
     }
 
     private static Viaje crearViajeDesdeLinea(String linea) {
         String[] datos = linea.split(",");
-        Date fechaSalida = crearFecha(datos[0], datos[1], datos[2]);
-        Date fechaLlegada = crearFecha(datos[3], datos[4], datos[5]);
+        //Date fechaSalida = crearFecha(datos[0], datos[1], datos[2]);
+        //Date fechaLlegada = crearFecha(datos[3], datos[4], datos[5]);
+        int anioSalida = Integer.parseInt(datos[0]);
+        int mesSalida = Integer.parseInt(datos[1]);
+        int diaSalida = Integer.parseInt(datos[2]);
+        Date fechaSalida = new Date(anioSalida,mesSalida,diaSalida);
+        int anioLlegada = Integer.parseInt(datos[3]);
+        int mesLlegada = Integer.parseInt(datos[4]);
+        int diaLlegada = Integer.parseInt(datos[5]);
+        Date fechaLlegada = new Date(anioLlegada,mesLlegada,diaLlegada);
         int horarioDeSalida = Integer.parseInt(datos[6]);
         int horarioDeLlegada = Integer.parseInt(datos[7]);
         int cupo = Integer.parseInt(datos[8]);
@@ -108,7 +116,7 @@ public class ManejadorArchivos {
         String nombreEmpresa = datos[11];
         int precio = Integer.parseInt(datos[12]);
 
-        return new Viaje(fechaSalida,fechaLlegada,nombreEmpresa,cupo, destino, origen,precio,horarioDeSalida, horarioDeLlegada );
+        return new Viaje(fechaSalida,fechaLlegada,nombreEmpresa,cupo, destino, origen,precio,horarioDeSalida,horarioDeLlegada);
     }
 
     private static Date crearFecha(String anio, String mes, String dia) {
@@ -122,7 +130,7 @@ public class ManejadorArchivos {
         return null;
     }
 
-    //LECTURA Y ESCRITURA DE USUARIOS EN EL ARCHIVO Usuarios.txt
+    //LECTURA DE USUARIOS EN EL ARCHIVO Usuarios.txt
     public static ArrayList<Usuario> leerArchivoUsuarios(String nombreArchivo) {
         ArrayList<Usuario> usuarios = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
@@ -143,11 +151,12 @@ public class ManejadorArchivos {
         String apellido = datos[1];
         int DNI = Integer.parseInt(datos[2]);
         String email = datos[3];
-        String claveAcceso = datos[3];
+        String claveAcceso = datos[4];
 
         return new Usuario(nombre,apellido,DNI,email,claveAcceso,null);
     }
 
+    /*
     public static void agregarUsuarioAlArchivo(String nombreArchivo) {
         Scanner scanner = new Scanner(System.in);
 
@@ -178,7 +187,7 @@ public class ManejadorArchivos {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } */
 
 }
 

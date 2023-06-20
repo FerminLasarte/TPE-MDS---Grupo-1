@@ -138,4 +138,5 @@ public class Viaje {
     public void setNombreEmpresa(String nombreEmpresa) {
         this.nombreEmpresa = nombreEmpresa;
     }
+
 }

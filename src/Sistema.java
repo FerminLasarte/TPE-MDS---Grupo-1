@@ -5,10 +5,12 @@ public class Sistema {
     private ArrayList<Viaje> viajes;
     private ArrayList<Usuario> usuarios;
     private Menu menu;
+    private String archivoViajes = "C:\\Users\\Franco Caraffo\\Desktop\\TPE Metodologias\\TPE-MDS---Grupo-1\\Viajes.txt";
+    private String archivoUsuarios = "C:\\Users\\Franco Caraffo\\Desktop\\TPE Metodologias\\TPE-MDS---Grupo-1\\Usuarios.txt";
 
     public Sistema() {
-        this.viajes = new ArrayList<>();
-        this.usuarios = new ArrayList<>();
+        this.viajes = ManejadorArchivos.leerArchivoViajes(archivoViajes);
+        this.usuarios = ManejadorArchivos.leerArchivoUsuarios(archivoUsuarios);
         this.menu = new Menu(this);
     }
 
@@ -54,6 +56,7 @@ public class Sistema {
         int precio = scanner.nextInt();
         Viaje nuevo = new Viaje(new Date(anioSalida,mesSalida,diaSalida),new Date(anioLlegada,mesLlegada,mesSalida), empresa,cupo,destino,origen,precio,horaSalida,horaLlegada);
         this.viajes.add(nuevo);
+        ManejadorArchivos.escribirArchivo(archivoViajes,anioSalida+","+mesSalida+","+diaSalida+","+anioLlegada+","+mesLlegada+","+mesSalida+","+horaSalida+","+horaLlegada+","+cupo+","+destino+","+origen+","+empresa+","+precio);
         System.out.println("El viaje ha sido agregado correctamente. Los datos del mismo son:");
         nuevo.imprimirViaje();
     }
@@ -68,8 +71,10 @@ public class Sistema {
         scanner.nextLine();
         String email = ingresarEmail(scanner);
         String claveAcceso = ingresarClaveAcceso(scanner);
+
         Usuario nuevoUsuario = new Usuario(nombre, apellido, dni, email, claveAcceso, null);
-        usuarios.add(nuevoUsuario);
+        this.usuarios.add(nuevoUsuario);
+        ManejadorArchivos.escribirArchivo(archivoUsuarios,nombre+","+apellido+","+dni+","+email+","+claveAcceso);
         System.out.println("¡Registro exitoso! ¿Desea asociar una tarjeta de credito a su cuenta? s/n");
         String opcion = scanner.nextLine();
         if (opcion.equalsIgnoreCase("s")) {
@@ -140,7 +145,6 @@ public class Sistema {
             }
             System.out.println("-----------------------------------------------------------");
         } else {
-            hayViajes = false;
             System.out.println("No hay viajes que coincidan con los criterios establecidos.");
             System.out.println("¿Desea buscar por otro criterio? s/n");
             String opcionOtroCriterio = scanner.nextLine();

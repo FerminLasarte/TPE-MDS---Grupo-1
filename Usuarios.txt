@@ -2,5 +2,6 @@ Franco,Caraffo,40000000,fra@gmail.com,Fra12345
 Simon,Diez,41000000,sim@gmail.com,Sim12345
 Hector,Halty,42000000,hec@gmail.com,Hec12345
 Fermin,Lasarte,43000000,fer@gmail.com,Fer12345
-Matias,Rodriguez,44000000,Mat12345
+Matias,Rodriguez,44000000,mat@gmail.com,Mat12345
 Tadeo,Villa,45000000,tad@gmail.com,Tad12345
+Guillermo,Rodriguez,46000000,gui@gmail.com,Gui12345
