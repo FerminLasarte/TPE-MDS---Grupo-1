@@ -1,3 +1,5 @@
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Main {
@@ -35,6 +37,16 @@ public class Main {
        sistema.addViaje(v6);
        sistema.addViaje(v7);
        sistema.addViaje(v8);
-       sistema.iniciar();
+       //sistema.iniciar();
+
+       ArrayList<Usuario> usuarios = ManejadorArchivos.leerArchivoUsuarios("C:\\Users\\Franco Caraffo\\Desktop\\TPE Metodologias\\TPE-MDS---Grupo-1\\Usuarios.txt");
+
+       for (Usuario usuario: usuarios){
+          System.out.println(usuario.getNombre() + " " + usuario.getApellido());
+          System.out.println(usuario.getDNI());
+          System.out.println(usuario.getEmail());
+          System.out.println("------------------------");
+       }
     }
+
 }
