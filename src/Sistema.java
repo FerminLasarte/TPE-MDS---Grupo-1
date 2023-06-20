@@ -5,8 +5,8 @@ public class Sistema {
     private ArrayList<Viaje> viajes;
     private ArrayList<Usuario> usuarios;
     private Menu menu;
-    private String archivoViajes = "C:\\Users\\Franco Caraffo\\Desktop\\TPE Metodologias\\TPE-MDS---Grupo-1\\Viajes.txt";
-    private String archivoUsuarios = "C:\\Users\\Franco Caraffo\\Desktop\\TPE Metodologias\\TPE-MDS---Grupo-1\\Usuarios.txt";
+    private String archivoViajes = "C:\\Users\\Franco Caraffo\\Desktop\\TPE Metodologias\\TPE-MDS---Grupo-1\\src\\Viajes.txt";
+    private String archivoUsuarios = "C:\\Users\\Franco Caraffo\\Desktop\\TPE Metodologias\\TPE-MDS---Grupo-1\\src\\Usuarios.txt";
 
     public Sistema() {
         this.viajes = ManejadorArchivos.leerArchivoViajes(archivoViajes);
