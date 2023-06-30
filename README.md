@@ -1,5 +1,5 @@
 # Plataforma 9¾ 🧹 <br>
-En este archivo se incluye una breve descripción del proyecto desarrollado junto con los links referidos al product backlog y al USM. 
+En este archivo se incluye una breve descripción del proyecto desarrollado junto link del product backlog realizado. 
 
 # Descripción del proyecto <br>
 El siguiente proyecto tiene como objetivo principal generar una plataforma para facilitar la venta de pasajes de omnibus. 
@@ -27,7 +27,5 @@ El siguiente proyecto tiene como objetivo principal generar una plataforma para 
 &nbsp; &nbsp; ▫ Hector Manuel Halty. <br>
   
 # Links <br>
-Diagrama de clases https://drive.google.com/file/d/16LRcyC2qMeyZgLEMKIbXUTW7ersZNSx_/view <br>
-Jira https://grupouno2023.atlassian.net/jira/software/projects/P93/boards/1 <br>
-Miro https://miro.com/app/board/uXjVMRWZw7s=/ <br>
+Wiki(Confluence): https://grupouno2023.atlassian.net/l/cp/bFLMbM3C  <br>
 
