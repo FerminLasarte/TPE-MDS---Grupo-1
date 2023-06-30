@@ -19,12 +19,15 @@ El siguiente proyecto tiene como objetivo principal generar una plataforma para 
 &nbsp; &nbsp; ▫ Dr. Guillermo Horacio Rodríguez. <br>
                               
 ◾ Grupo de desarrollo: <br>
-&nbsp; &nbsp; ▫ Fermin Lasarte. <br>
 &nbsp; &nbsp; ▫ Franco Caraffo. <br>
-&nbsp; &nbsp; ▫ Tadeo Villa. <br>
-&nbsp; &nbsp; ▫ Matias Rodriguez. <br>
 &nbsp; &nbsp; ▫ Simon Diez. <br> 
 &nbsp; &nbsp; ▫ Hector Manuel Halty. <br>
+&nbsp; &nbsp; ▫ Fermin Lasarte. <br>
+&nbsp; &nbsp; ▫ Matias Rodriguez. <br>
+&nbsp; &nbsp; ▫ Tadeo Villa. <br>
+
+
+
   
 # Links <br>
 Wiki(Confluence): https://grupouno2023.atlassian.net/l/cp/bFLMbM3C  <br>
