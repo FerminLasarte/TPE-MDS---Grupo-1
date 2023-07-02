@@ -62,6 +62,7 @@ public class Sistema {
     }
 
     public void registrarUsuario(Scanner scanner) {
+        boolean tarjeta = false;
         System.out.print("Ingrese su nombre: ");
         String nombre = scanner.nextLine();
         System.out.print("Ingrese su apellido: ");
@@ -71,28 +72,28 @@ public class Sistema {
         scanner.nextLine();
         String email = ingresarEmail(scanner);
         String claveAcceso = ingresarClaveAcceso(scanner);
-
-        Usuario nuevoUsuario = new Usuario(nombre, apellido, dni, email, claveAcceso, null);
-        this.usuarios.add(nuevoUsuario);
-        ManejadorArchivos.escribirArchivo(archivoUsuarios,nombre+","+apellido+","+dni+","+email+","+claveAcceso);
-        System.out.println("¡Registro exitoso! ¿Desea asociar una tarjeta de credito a su cuenta? s/n");
+        System.out.println("¿Desea asociar una tarjeta de credito a su cuenta? s/n");
         String opcion = scanner.nextLine();
         if (opcion.equalsIgnoreCase("s")) {
+            tarjeta = true;
             System.out.print("Ingrese el numero de la tarjeta: ");
             int nroTarjeta = scanner.nextInt();
             scanner.nextLine();
-            System.out.print("Ingrese el banco emisor: ");
-            String bancoEmisor = scanner.nextLine();
-            System.out.print("Ingrese la marca: ");
-            String marcaTarjeta = scanner.nextLine();
             System.out.print("Ingrese el nombre del titular: ");
             String nombreTitular = scanner.nextLine();
             System.out.print("Ingrese el codigo de seguridad: ");
             int codigoSeguridad = scanner.nextInt();
             scanner.nextLine();
-            nuevoUsuario.setTarjeta(new Tarjeta(nroTarjeta,bancoEmisor,marcaTarjeta,nombreTitular,codigoSeguridad));
             System.out.println("Tarjeta asociada con exito.");
         }
+        Usuario nuevoUsuario = new Usuario(nombre, apellido, dni, email, claveAcceso,tarjeta);
+        this.usuarios.add(nuevoUsuario);
+        if (tarjeta){
+            ManejadorArchivos.escribirArchivo(archivoUsuarios, nombre + "," + apellido + "," + dni + "," + email + "," + claveAcceso + "," + "si");
+        } else {
+            ManejadorArchivos.escribirArchivo(archivoUsuarios, nombre + "," + apellido + "," + dni + "," + email + "," + claveAcceso + "," + "no");
+        }
+        System.out.println("¡Registro exitoso!");
         menu.menuInicioSistema();
     }
 
@@ -212,21 +213,17 @@ public class Sistema {
                 }
             }
             case 2 -> {
-                if (usuario.getTarjeta() == null) {
+                if (!usuario.tieneTarjeta()) {
                     System.out.println("No tiene ninguna tarjeta asociada. Ingrese los datos de su tarjeta.");
                     System.out.print("Numero de Tarjeta: ");
                     int nroTarjeta = intScanner.nextInt();
                     intScanner.nextLine();
-                    System.out.print("Banco Emisor: ");
-                    String bancoEmisor = stringScanner.nextLine();
-                    System.out.print("Marca: ");
-                    String marcaTarjeta = stringScanner.nextLine();
                     System.out.print("Nombre Titular: ");
                     String nombreTitular = stringScanner.nextLine();
                     System.out.print("Codigo de Seguridad: ");
                     int codigoSeguridad = intScanner.nextInt();
                     intScanner.nextLine();
-                    usuario.setTarjeta(new Tarjeta(nroTarjeta, bancoEmisor, marcaTarjeta, nombreTitular, codigoSeguridad));
+                    usuario.setTarjeta();
                 }
                 System.out.println("Su compra ha sido completada con exito! Recibira la informacion de el/los pasaje/s por correo electronico.");
             }
